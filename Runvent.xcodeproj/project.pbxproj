@@ -195,6 +195,10 @@
 			);
 			mainGroup = B5CA1AA32ECA4472000A7C75;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B5CA1AF72ECA549F000A7C75 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				B5CA1AF82ECA554B000A7C75 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B5CA1AAD2ECA4472000A7C75 /* Products */;
 			projectDirPath = "";
@@ -578,6 +582,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B5CA1AF72ECA549F000A7C75 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		B5CA1AF82ECA554B000A7C75 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = B5CA1AA42ECA4472000A7C75 /* Project object */;
 }

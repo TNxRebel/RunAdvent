@@ -1,0 +1,129 @@
+# Runvent 🎁
+
+A delightful iOS Advent calendar app built with SwiftUI, featuring interactive gift boxes that reveal running challenges for each day of December.
+
+## Features
+
+- 🎄 24 interactive Advent day boxes with unique animations
+- 🎁 Smooth gift box opening animations with lid rotation and confetti effects
+- 🎨 Color-coded boxes based on kilometer values (4 distinct color ranges)
+- 🔊 Christmas chime sound effects
+- 📳 Haptic feedback for enhanced user experience
+- 💾 Persistent state management with UserDefaults
+- ⚙️ Customizable settings (sound, haptics, duplicate kilometers)
+- 🎯 Fixed, non-scrolling layout with varied box sizes and positions
+
+## Tech Stack
+
+### Core Technologies
+- **Language**: Swift 5.9+
+- **UI Framework**: SwiftUI
+- **Platform**: iOS
+- **Minimum iOS Version**: iOS 17.0+
+
+### Architecture & Design Patterns
+- **Architecture**: MVVM (Model-View-ViewModel)
+- **State Management**: Combine Framework
+  - `ObservableObject` for view models
+  - `@Published` properties for reactive updates
+  - `@StateObject` and `@EnvironmentObject` for dependency injection
+
+### Frameworks & Libraries
+
+#### Core Frameworks
+- **SwiftUI**: Declarative UI framework for building the interface
+- **Foundation**: Core data structures and utilities
+- **Combine**: Reactive programming for state management
+- **UIKit**: Haptic feedback integration
+  - `UINotificationFeedbackGenerator` for success haptics
+  - `UIImpactFeedbackGenerator` for light haptics
+
+#### Media & Animation
+- **AVFoundation**: Audio playback
+  - `AVAudioPlayer` for Christmas chime sound effects
+  - `AVAudioSession` for audio session management
+- **Lottie** (Optional): Advanced animation support
+  - Used for confetti animations
+  - Graceful fallback to native SwiftUI animations if not available
+
+#### Persistence
+- **UserDefaults**: Local data storage
+  - `JSONEncoder` / `JSONDecoder` for serialization
+  - Stores Advent day states, settings, and preferences
+
+#### Testing
+- **Swift Testing**: Modern testing framework
+  - Unit tests for ViewModel logic
+  - Snapshot tests for view rendering
+  - Preview tests for visual verification
+
+### Project Structure
+
+```
+Runvent/
+├── Models/
+│   └── AdventDay.swift          # Data model for Advent days
+├── Views/
+│   ├── HomeView.swift           # Main calendar view
+│   └── SettingsView.swift       # Settings and preferences
+├── ViewModels/
+│   └── RunventViewModel.swift   # Business logic and state management
+├── Animations/
+│   ├── LottieView.swift         # Lottie animation wrapper
+│   └── ConfettiView.swift       # Native confetti fallback
+└── Utils/
+    ├── ColorUtils.swift         # Color utilities for KM-based coloring
+    ├── HapticFeedback.swift     # Haptic feedback manager
+    ├── SoundManager.swift       # Audio playback manager
+    └── SettingsManager.swift    # Settings persistence manager
+```
+
+### Key Features Implementation
+
+- **Custom Layout System**: Fixed, hardcoded box positions and sizes for consistent layout
+- **Advanced Animations**: 
+  - Tap-down anticipation with scale effects
+  - 3D lid rotation with custom timing curves
+  - Spring-based KM reveal animations
+  - Pulsing glow effects for opened boxes
+- **Responsive Design**: GeometryReader-based layout that adapts to screen sizes
+- **Accessibility**: System color support with light/dark mode compatibility
+
+## Requirements
+
+- Xcode 15.0+
+- iOS 17.0+
+- Swift 5.9+
+
+## Optional Dependencies
+
+- **Lottie-iOS**: For enhanced confetti animations
+  - Add via: File > Add Package Dependencies > `https://github.com/airbnb/lottie-ios.git`
+  - The app includes a graceful fallback if Lottie is not installed
+
+## Setup
+
+1. Clone the repository
+2. Open `Runvent.xcodeproj` in Xcode
+3. Build and run on iOS Simulator or device
+4. (Optional) Add Lottie package dependency for enhanced animations
+5. (Optional) Add `christmas_chime.mp3` (or .wav/.m4a) to the project for sound effects
+
+## Testing
+
+The project includes comprehensive test coverage:
+
+- **Unit Tests**: ViewModel logic, persistence, and business rules
+- **Snapshot Tests**: Visual verification of box states
+- **Preview Tests**: SwiftUI preview-based testing
+
+Run tests with: `Cmd + U` in Xcode
+
+## License
+
+[Add your license here]
+
+## Author
+
+Houssem Farhani
+
