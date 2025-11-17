@@ -5,7 +5,7 @@
 This project is a cool but tough challenge for runners.
 Most Advent calendars give you chocolate or small gifts, but this one gives you a daily running mission.
 
-Each day, you open a “door” and get a random distance between 1 km and 24 km.
+Each day, you open a “box” and get a random distance between 1 km and 24 km.
 You never know what you’ll get: could be an easy 3 km, or suddenly a 20+ km push.
 
 This randomness makes the challenge more fun and avoids overloading the runner.
@@ -81,7 +81,7 @@ Runvent/
 Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/Runvent.git
+git clone https://github.com/TNxRebel/Runvent.git
 ```
 
 Open the project:
@@ -99,7 +99,6 @@ Run on iOS 17+ using Xcode.
 * [ ] Home Screen widget
 * [ ] iCloud sync
 * [ ] Daily share card
-* [ ] Themes (Candy Cane, Santa Workshop)
 * [ ] Accessibility improvements
 
 ---
