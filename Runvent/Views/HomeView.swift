@@ -18,6 +18,15 @@ struct HomeView: View {
         let height: CGFloat
     }
     
+    // Grid-based box definitions (row, column, rowSpan, columnSpan)
+    struct BoxGridItem {
+        let dayNumber: Int
+        let row: Int
+        let col: Int
+        let rowSpan: Int
+        let colSpan: Int
+    }
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -85,101 +94,94 @@ struct HomeView: View {
         }
     }
     
-    // Hardcoded fixed layouts for each day (1-24)
-    // Each entry: (widthMultiplier, heightMultiplier, offsetXMultiplier, offsetYMultiplier)
-    private let fixedLayouts: [Int: (width: CGFloat, height: CGFloat, offsetX: CGFloat, offsetY: CGFloat)] = [
-        1: (1.15, 0.95, -0.12, 0.08),
-        2: (0.85, 1.25, 0.15, -0.10),
-        3: (1.30, 0.88, -0.08, 0.12),
-        4: (0.92, 1.18, 0.10, -0.15),
-        5: (1.08, 1.05, -0.05, 0.05),
-        6: (0.78, 1.32, 0.18, -0.08),
-        7: (1.22, 0.92, -0.10, 0.10),
-        8: (0.88, 1.28, 0.12, -0.12),
-        9: (1.05, 1.10, -0.08, 0.15),
-        10: (0.95, 1.15, 0.08, -0.10),
-        11: (1.18, 0.98, -0.15, 0.08),
-        12: (0.82, 1.22, 0.10, -0.12),
-        13: (1.12, 1.02, -0.12, 0.10),
-        14: (0.90, 1.20, 0.15, -0.08),
-        15: (1.25, 0.90, -0.10, 0.12),
-        16: (0.85, 1.28, 0.12, -0.15),
-        17: (1.08, 1.08, -0.08, 0.08),
-        18: (0.92, 1.15, 0.10, -0.10),
-        19: (1.20, 0.95, -0.12, 0.15),
-        20: (0.88, 1.25, 0.08, -0.12),
-        21: (1.15, 1.00, -0.10, 0.10),
-        22: (0.95, 1.18, 0.15, -0.08),
-        23: (1.28, 0.88, -0.08, 0.12),
-        24: (0.82, 1.30, 0.12, -0.15)
+    // Puzzle-like grid layout for 24 boxes
+    // Grid: 6 columns x 6 rows (base units)
+    // Each box has: (dayNumber, row, col, rowSpan, colSpan)
+    private let gridBoxes: [BoxGridItem] = [
+        // Row 0 (Top row) - 4 boxes
+        BoxGridItem(dayNumber: 1, row: 0, col: 0, rowSpan: 2, colSpan: 2),  // Large square
+        BoxGridItem(dayNumber: 2, row: 0, col: 2, rowSpan: 1, colSpan: 1),  // Small
+        BoxGridItem(dayNumber: 3, row: 0, col: 3, rowSpan: 1, colSpan: 2),  // Wide
+        BoxGridItem(dayNumber: 4, row: 0, col: 5, rowSpan: 2, colSpan: 1),  // Tall
+        
+        // Row 1 - 3 boxes (some overlap from row 0)
+        BoxGridItem(dayNumber: 5, row: 1, col: 2, rowSpan: 1, colSpan: 1),  // Small
+        BoxGridItem(dayNumber: 6, row: 1, col: 3, rowSpan: 1, colSpan: 1),  // Small
+        BoxGridItem(dayNumber: 7, row: 1, col: 4, rowSpan: 2, colSpan: 1),  // Tall
+        
+        // Row 2 - 5 boxes
+        BoxGridItem(dayNumber: 8, row: 2, col: 0, rowSpan: 1, colSpan: 1),  // Small
+        BoxGridItem(dayNumber: 9, row: 2, col: 1, rowSpan: 1, colSpan: 2),  // Wide
+        BoxGridItem(dayNumber: 10, row: 2, col: 3, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 11, row: 2, col: 5, rowSpan: 1, colSpan: 1), // Small
+        
+        // Row 3 - 5 boxes
+        BoxGridItem(dayNumber: 12, row: 3, col: 0, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 13, row: 3, col: 1, rowSpan: 2, colSpan: 1), // Tall
+        BoxGridItem(dayNumber: 14, row: 3, col: 2, rowSpan: 1, colSpan: 2), // Wide
+        BoxGridItem(dayNumber: 15, row: 3, col: 4, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 16, row: 3, col: 5, rowSpan: 2, colSpan: 1), // Tall
+        
+        // Row 4 - 4 boxes
+        BoxGridItem(dayNumber: 17, row: 4, col: 0, rowSpan: 2, colSpan: 1), // Tall
+        BoxGridItem(dayNumber: 18, row: 4, col: 2, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 19, row: 4, col: 3, rowSpan: 1, colSpan: 2), // Wide
+        
+        // Row 5 (Bottom row) - 4 boxes
+        BoxGridItem(dayNumber: 20, row: 5, col: 1, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 21, row: 5, col: 2, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 22, row: 5, col: 3, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 23, row: 5, col: 4, rowSpan: 1, colSpan: 1), // Small
+        BoxGridItem(dayNumber: 24, row: 5, col: 5, rowSpan: 1, colSpan: 1)  // Small
     ]
     
     private func generateLayout(in size: CGSize) {
         guard !viewModel.days.isEmpty else { return }
         guard size.width > 0 && size.height > 0 else { return }
         
-        let padding: CGFloat = 10
-        let availableWidth = max(0, size.width - (padding * 2))
-        let availableHeight = max(0, size.height - (padding * 2))
+        // Spacing between boxes
+        let spacing: CGFloat = 6
+        
+        // Calculate available space
+        let padding: CGFloat = 8
+        let availableWidth = size.width - (padding * 2)
+        let availableHeight = size.height - (padding * 2)
         
         guard availableWidth > 0 && availableHeight > 0 else { return }
         
-        // Create a flexible grid-like layout with varying sizes
-        let columns = 6
-        let rows = 4
-        let cellWidth = availableWidth / CGFloat(columns)
-        let cellHeight = availableHeight / CGFloat(rows)
+        // Grid system: 6 columns x 6 rows
+        let gridColumns: CGFloat = 6
+        let gridRows: CGFloat = 6
+        
+        // Calculate cell size (including spacing)
+        let totalHorizontalSpacing = spacing * (gridColumns - 1)
+        let totalVerticalSpacing = spacing * (gridRows - 1)
+        
+        let cellWidth = (availableWidth - totalHorizontalSpacing) / gridColumns
+        let cellHeight = (availableHeight - totalVerticalSpacing) / gridRows
         
         guard cellWidth > 0 && cellHeight > 0 else { return }
         
         var newLayouts: [Int: BoxLayout] = [:]
         
-        for day in viewModel.days {
-            // Get grid position based on day ID (1-24)
-            let index = day.id - 1
-            let row = index / columns
-            let col = index % columns
+        // Create layouts based on grid definitions
+        for boxItem in gridBoxes {
+            // Calculate box dimensions
+            let boxWidth = (cellWidth * CGFloat(boxItem.colSpan)) + (spacing * CGFloat(boxItem.colSpan - 1))
+            let boxHeight = (cellHeight * CGFloat(boxItem.rowSpan)) + (spacing * CGFloat(boxItem.rowSpan - 1))
             
-            // Get fixed layout multipliers for this day
-            let layout = fixedLayouts[day.id] ?? (1.0, 1.0, 0.0, 0.0)
+            // Calculate position (top-left corner)
+            let x = padding + (cellWidth * CGFloat(boxItem.col)) + (spacing * CGFloat(boxItem.col))
+            let y = padding + (cellHeight * CGFloat(boxItem.row)) + (spacing * CGFloat(boxItem.row))
             
-            // Calculate size using fixed multipliers
-            var width = cellWidth * layout.width
-            var height = cellHeight * layout.height
+            // Position is center of the box (SwiftUI uses center for .position)
+            let centerX = x + boxWidth / 2
+            let centerY = y + boxHeight / 2
             
-            // Ensure minimum sizes
-            width = max(30, width)
-            height = max(30, height)
-            
-            // Calculate position (center of cell with fixed offset)
-            let cellCenterX = padding + CGFloat(col) * cellWidth + cellWidth / 2
-            let cellCenterY = padding + CGFloat(row) * cellHeight + cellHeight / 2
-            
-            // Apply fixed offset multipliers
-            let maxOffsetX = min(cellWidth * 0.2, cellWidth / 2 - width / 2)
-            let maxOffsetY = min(cellHeight * 0.2, cellHeight / 2 - height / 2)
-            
-            let offsetX = layout.offsetX * maxOffsetX
-            let offsetY = layout.offsetY * maxOffsetY
-            
-            let position = CGPoint(
-                x: cellCenterX + offsetX,
-                y: cellCenterY + offsetY
-            )
-            
-            // Ensure position stays within bounds
-            let minX = padding + width / 2
-            let maxX = size.width - padding - width / 2
-            let minY = padding + height / 2
-            let maxY = size.height - padding - height / 2
-            
-            let finalX = max(minX, min(maxX, position.x))
-            let finalY = max(minY, min(maxY, position.y))
-            
-            newLayouts[day.id] = BoxLayout(
-                position: CGPoint(x: finalX, y: finalY),
-                width: width,
-                height: height
+            newLayouts[boxItem.dayNumber] = BoxLayout(
+                position: CGPoint(x: centerX, y: centerY),
+                width: boxWidth,
+                height: boxHeight
             )
         }
         
@@ -268,7 +270,6 @@ struct GiftBoxView: View {
             }
         }
         .scaleEffect(scale)
-        .aspectRatio(1, contentMode: .fit)
         .onTapGesture {
             // Only allow tap if box is not already opened
             if !day.opened && viewModel.canOpen(day: day) {

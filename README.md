@@ -20,7 +20,6 @@ A perfect mix of surprise, discipline, and endurance.
 - 📳 Haptic feedback for enhanced user experience
 - 💾 Persistent state management with UserDefaults
 - ⚙️ Customizable settings (sound, haptics, duplicate kilometers)
-- 🎯 Fixed, non-scrolling layout with varied box sizes and positions
 
 ## Tech Stack
 
