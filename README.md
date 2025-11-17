@@ -1,10 +1,19 @@
-# Runvent 🎁
+# 🎄🏃 RunAdvent
 
-A delightful iOS Advent calendar app built with SwiftUI, featuring interactive gift boxes that reveal running challenges for each day of December.
+This project is a cool but tough challenge for runners.
+Most Advent calendars give you chocolates or small gifts, but this one gives you a daily running mission.
 
+Each day, you open a “box” and get a random distance between 1 km and 24 km.
+You never know what you’ll get: could be an easy 3 km, or suddenly a 20+ km push.
+
+This randomness makes the challenge more fun and avoids overloading the runner.
+Instead of stacking huge distances in the final week (like the traditional 1–24 km progression that ends with ~150 km in 7 days), the difficulty is spread more evenly across the whole month.
+
+You’ll still end up with around 300 km total, but with a balanced distribution of tough and easy days.
+A perfect mix of surprise, discipline, and endurance.
 ## Features
 
-- 🎄 24 interactive Advent day boxes with unique animations
+- 🎄 24 interactive Advent day boxes
 - 🎁 Smooth gift box opening animations with lid rotation and confetti effects
 - 🎨 Color-coded boxes based on kilometer values (4 distinct color ranges)
 - 🔊 Christmas chime sound effects
@@ -121,9 +130,14 @@ Run tests with: `Cmd + U` in Xcode
 
 ## License
 
-[Add your license here]
+This project is licensed under the **MIT License**.
+
+See the `LICENSE` file for details.
 
 ## Author
 
-Houssem Farhani
 
+**Houssem Farhani**
+
+* GitHub: @TNxRebel (https://github.com/TNxRebel)
+* Instagram: @houssemfarhani
