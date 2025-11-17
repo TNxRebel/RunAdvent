@@ -132,7 +132,7 @@ Run tests with: `Cmd + U` in Xcode
 
 This project is licensed under the **MIT License**.
 
-See the 'LICENSE' file for details.
+See the `LICENSE` file for details.
 
 ## Author
 
